@@ -1,0 +1,21 @@
+---
+- name: "Installing Apache On Ubuntu & Amazon Linux"
+  become: true
+  hosts: all
+  tasks:
+    
+    - name: "Installaing Packages"
+      package:
+        name: "{{ package }}"
+        state: present
+            
+    - name: "Restarting/Enabling Service"
+      service:
+        name: "{{ service }}"
+        state: restarted
+        enabled: true
+            
+    - name: "Creating index.html"
+      copy:
+        content: "<center><h1> {{ ansible_fqdn }} </h1></center>"
+        dest: /var/www/html/index.html
